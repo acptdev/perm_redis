@@ -1,0 +1,34 @@
+#perm_redis_admin > * {
+  box-sizing: border-box; }
+
+#perm_redis_admin a {
+  text-decoration: none; }
+
+#perm_redis_admin .text-center {
+  text-align: center; }
+
+#perm_redis_admin .text-right {
+  text-align: right; }
+
+#perm_redis_admin .panel {
+  width: 100%;
+  border: 1px solid black;
+  background: white; }
+  #perm_redis_admin .panel h2 {
+    padding: 0;
+    margin: 0; }
+  #perm_redis_admin .panel > div {
+    padding: 20px; }
+  #perm_redis_admin .panel .panel-heading {
+    text-align: center; }
+
+#perm_redis_admin table {
+  width: 100%;
+  border-collapse: collapse; }
+  #perm_redis_admin table thead {
+    background-color: #f0f0f0; }
+  #perm_redis_admin table tr:nth-child(even) {
+    background: #ededed; }
+  #perm_redis_admin table tr th, #perm_redis_admin table tr td {
+    padding: 10px;
+    text-align: left; }

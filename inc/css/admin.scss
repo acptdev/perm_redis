@@ -1,0 +1,38 @@
+#perm_redis_admin{
+    & > * { box-sizing: border-box }
+    a{ text-decoration: none; }
+    .text-center{text-align: center}
+    .text-right{text-align: right}    
+    .panel{
+        width: 100%;
+        border: 1px solid black;
+        background: white;
+        h2{
+            padding: 0;
+            margin: 0;
+        }
+        & > div{
+            padding: 20px;
+        }
+        .panel-heading{            
+            text-align: center;
+        }
+    }
+    table{
+        width: 100%;        
+        border-collapse: collapse;
+        thead{
+            background-color: #f0f0f0;
+        }
+        tr{
+            &:nth-child(even){                
+                background: #ededed;
+            }
+            th, td{
+                padding: 10px;
+                text-align: left;
+            }
+            
+        }
+    }
+}
