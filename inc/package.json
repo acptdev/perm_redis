@@ -1,0 +1,20 @@
+{
+  "name": "inc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-watch-sass": "^1.4.0"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-sass": "^3.1.0",
+    "gulp-watch-sass": "^1.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
