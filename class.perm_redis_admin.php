@@ -16,7 +16,8 @@
         }
         public static function abaOpcoes()
         {            
-            $templateVars['{PATH_CSS}'] = plugins_url("perm_redis/inc/css/admin.css");
+            $templateVars['{PATH_PLUGIN}'] = plugins_url("perm_redis");
+            $templateVars['{PATH_SERVICE}'] = home_url();
 
             $admTpl = file_get_contents(PERM_REDIS__PLUGIN_DIR."view/admin_tpl.html");
 

@@ -3,11 +3,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="../inc/css/admin.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="../inc/script/utils.js"></script>
-    <script src="../inc/script/admin.js"></script>
+    <title>Permutas & Redistribuições</title>
+    <link rel="stylesheet" href="{PATH_PLUGIN}/inc/css/admin.css">    
+    <script>window.BASE_URL = "{PATH_SERVICE}/?rest_route=/perm-redis" </script>
+    <script src="{PATH_PLUGIN}/inc/script/utils.js"></script>
+    <script src="{PATH_PLUGIN}/inc/script/admin.js"></script>
 </head>
 <body>
     <div class="wrap" id="perm_redis_admin">
@@ -19,6 +19,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Nome</th>
                             <th>Email</th>
                             <th>Lotação</th>
@@ -27,41 +28,13 @@
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Givailson</td>
-                            <td>givailson@gmail.com</td>
-                            <td>Monumenta</td>
-                            <td>Programador</td>
-                            <td>22/12/2018</td>
-                            <td class="text-center">
-                                <a href="">
-                                    <span class="dashicons dashicons-edit"></span>
-                                </a>
-                                |
-                                <a href="">
-                                    <span class="dashicons dashicons-trash"></span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Givailson</td>
-                            <td>givailson@gmail.com</td>
-                            <td>Monumenta</td>
-                            <td>Programador</td>
-                            <td>22/12/2018</td>
-                            <td class="text-center">
-                                <a title="Editar" href="">
-                                    <span class="dashicons dashicons-edit"></span>
-                                </a>
-                                |
-                                <a title="excluir" href="">
-                                    <span class="dashicons dashicons-trash"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
+            </div>
+        </div>
+        <div class="perm_redisLoading">
+            <div>
+                <p>Aguarde...</p>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
     class PermutaReedistribuicao{
         public $id;
+        public $tipo;
         public $nome;
         public $cpf;
         public $cargo;
@@ -17,11 +18,13 @@
         public $lotacaoDestino;
         public $estadoDestino;
         public $cidadeDestino;
+        public $data;
 
         public static function fromQueryParams($params)
         {
             $obj = new PermutaReedistribuicao();                
                 $obj->nome = $params['nome'];
+                $obj->tipo = $params['tipo'];
                 $obj->cpf = $params['cpf'];
                 $obj->cargo = $params['cargo'];
                 $obj->matricula = $params['matricula'];
@@ -45,6 +48,7 @@
             $obj = new PermutaReedistribuicao();                
                 $obj->id = $res->perm_redis_id;
                 $obj->nome = $res->Nome;
+                $obj->tipo = $res->Tipo;
                 $obj->cpf = $res->CPF;
                 $obj->cargo = $res->Cargo;
                 $obj->matricula = $res->Matricula;
@@ -59,6 +63,7 @@
                 $obj->lotacaoDestino = $res->OrgaoDestinoLotacao;
                 $obj->estadoDestino = $res->OrgaoDestinoEstado;
                 $obj->cidadeDestino = $res->OrgaoDestinoCidade;
+                $obj->data = $res->Data;
     
             return $obj;
         }

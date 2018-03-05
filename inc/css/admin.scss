@@ -1,4 +1,22 @@
 #perm_redis_admin{
+    .perm_redisLoading
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        background-color: rgba(black, .4);
+        &>div{
+            background-color: white;
+            width: 200px;            
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 30% auto 0;
+        }
+    }
     & > * { box-sizing: border-box }
     a{ text-decoration: none; }
     .text-center{text-align: center}
