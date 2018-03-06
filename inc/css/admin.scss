@@ -1,6 +1,7 @@
 #perm_redis_admin{
     .perm_redisLoading
     {
+        z-index: 99;
         position: fixed;
         top: 0;
         left: 0;
@@ -15,6 +16,82 @@
             text-align: center;
             border-radius: 5px;
             margin: 30% auto 0;
+        }
+    }
+    .perm_redis_form{
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;        
+        background-color: rgba(black, .4);
+        overflow-y: scroll;
+        .perm_redis_form_wrapper{
+            display: block;
+            background-color: white;
+            width: 600px;
+            margin: 50px  auto;     
+            position: relative;
+            a.close {
+                display: block;
+                font-size: 18px;
+                color: white;
+                background: #c03131;
+                padding: 5px 10px;
+                position: absolute;
+                top: 0;
+                right: 0;                
+            }
+            .buttons-control{
+                padding: 10px;
+                text-align: right;
+                button{
+                    padding: 10px;
+                    min-width: 120px;
+                    cursor: pointer;
+                    display: inline-block;
+                    &[type=submit]{
+                        background-color: #008CBA;
+                        color: white;
+                    }
+                }
+            }
+            section{
+                padding: 10px;                
+                background: rgba($color: gray, $alpha: .5);                
+                &:nth-child(even){
+                    background: white;
+                }
+                legend{
+                    border-bottom: 1px solid rgba(gray,.2);
+                    font-size: 1rem;
+                    margin-bottom: 20px;
+                    text-transform: uppercase;
+                }
+                textarea {
+                    width: 100%;
+                    display: block;
+                    margin-top: 5px;
+                }
+                ul{
+                    padding: 0;
+                    margin: 0;
+                    width: 100%;
+                    display: flex;
+                    li{         
+                        flex: 1;
+                        padding: 5px;           
+                        label{
+                            input, select{
+                                width: 100%;
+                                margin-top: 5px;
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     & > * { box-sizing: border-box }

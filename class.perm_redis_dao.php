@@ -15,11 +15,11 @@
             $this->wpdb->query(
                 "                                        
                     INSERT INTO `".$this->wpdb->prefix."perm_redis` 
-                        (`perm_redis_id`, `Nome`, `Email`, `CPF`, `Cargo`, `Matricula`, `Telefone`, `OrgaoNome`, `OrgaoLotacao`, `OrgaoEstado`, `OrgaoCidade`, 
-                        `OrgaoDestinoNome`, `OrgaoDestinoLotacao`, `OrgaoDestinoEstado`, `OrgaoDestinoCidade`, `Mensagem`) 
-                        VALUES (NULL, '$perm_redis->nome', '$perm_redis->email', '$perm_redis->cpf', '$perm_redis->cargo', 
-                            '$perm_redis->matricula', '$perm_redis->telefone', '$perm_redis->orgaoOrigem', '$perm_redis->lotacaoOrigem', 
-                            '$perm_redis->estadoOrigem', '$perm_redis->cidadeOrigem', '$perm_redis->orgaoDestino', '$perm_redis->lotacaoDestino', 
+                        (`perm_redis_id`, `Tipo`, `Nome`, `Email`, `CPF`, `Cargo`, `Especialidade`, `Matricula`, `Telefone`, `OrgaoOrigem`, `OrgaoEstado`, 
+                        `OrgaoCidade`, `OrgaoDestino`, `OrgaoDestinoEstado`, `OrgaoDestinoCidade`, `Mensagem`) 
+                        VALUES (NULL, '$perm_redis->tipo', '$perm_redis->nome', '$perm_redis->email', '$perm_redis->cpf', '$perm_redis->cargo', 
+                            '$perm_redis->especialidade', '$perm_redis->matricula', '$perm_redis->telefone', '$perm_redis->orgaoOrigem', 
+                            '$perm_redis->estadoOrigem', '$perm_redis->cidadeOrigem', '$perm_redis->orgaoDestino',
                             '$perm_redis->estadoDestino', '$perm_redis->cidadeDestino', '$perm_redis->mensagem');
                 "
              );
@@ -30,12 +30,12 @@
             $this->wpdb->query(
                 "    
                     UPDATE `".$this->wpdb->prefix."perm_redis` 
-                    SET `Nome` = '$perm_redis->nome', `Email` = '$perm_redis->email', 
-                    `CPF` = '$perm_redis->cpf', `Cargo` = '$perm_redis->cargo', `Matricula` = '$perm_redis->matricula', 
-                    `Telefone` = '$perm_redis->telefone', `OrgaoNome` = '$perm_redis->orgaoOrigem', `OrgaoLotacao` = '$perm_redis->lotacaoOrigem', 
-                    `OrgaoEstado` = '$perm_redis->estadoOrigem', `OrgaoCidade` = '$perm_redis->cidadeOrigem', `OrgaoDestinoNome` = '$perm_redis->orgaoDestino', 
-                    `OrgaoDestinoLotacao` = '$perm_redis->lotacaoDestino', `OrgaoDestinoEstado` = '$perm_redis->estadoDestino', 
-                    `OrgaoDestinoCidade` = ' $perm_redis->cidadeDestino', `Mensagem` = '$perm_redis->mensagem' 
+                    SET `Tipo` = '$perm_redis->tipo', `Nome` = '$perm_redis->nome', `Email` = '$perm_redis->email', 
+                    `CPF` = '$perm_redis->cpf', `Cargo` = '$perm_redis->cargo', `Especialidade` = '$perm_redis->especialidade', `Matricula` = '$perm_redis->matricula', 
+                    `Telefone` = '$perm_redis->telefone', `OrgaoOrigem` = '$perm_redis->orgaoOrigem', `OrgaoEstado` = '$perm_redis->estadoOrigem', 
+                    `OrgaoCidade` = '$perm_redis->cidadeOrigem', `OrgaoDestino` = '$perm_redis->orgaoDestino', 
+                    `OrgaoDestinoEstado` = '$perm_redis->estadoDestino', `OrgaoDestinoCidade` = ' $perm_redis->cidadeDestino', 
+                    `Mensagem` = '$perm_redis->mensagem' 
                     WHERE `wp_perm_redis`.`perm_redis_id` = $id;                                    
                 "
              );
@@ -72,6 +72,22 @@
             
             return $results;
         }
+
+        public function listarEstadosPorRegiao($regioes){
+            
+            $estados = implode(",",$regioes);
+            return $this->wpdb->get_results( "SELECT * FROM `".$this->wpdb->prefix."perm_redis_estado` WHERE `perm_redis_estado_id` IN ($estados)" );
+        }
+
+        public function listarEstados()
+        {
+            return $this->wpdb->get_results( "SELECT * FROM `".$this->wpdb->prefix."perm_redis_estado`" );
+        }            
+
+        public function listarCidades($estado)
+        {
+            return $this->wpdb->get_results( "SELECT * FROM `".$this->wpdb->prefix."perm_redis_cidade` WHERE estado_id = $estado" );
+        }
         
         private function inicializarBanco()
         {
@@ -106,7 +122,7 @@
             if( sizeof($results) == 0 )
             {
                 $this->wpdb->query("INSERT INTO `".$this->wpdb->prefix."perm_redis_cidade` ".INSERT_REDIS_CIDADES_1);
-                
+
                 $this->wpdb->query("INSERT INTO `".$this->wpdb->prefix."perm_redis_cidade` ".INSERT_REDIS_CIDADES_2);
 
                 $this->wpdb->query("INSERT INTO `".$this->wpdb->prefix."perm_redis_cidade` ".INSERT_REDIS_CIDADES_3);
