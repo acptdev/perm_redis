@@ -62,7 +62,7 @@
         public function listar()
         {
             $results = array();
-            $resultados = $this->wpdb->get_results( "SELECT * FROM `".$this->wpdb->prefix."perm_redis`" );
+            $resultados = $this->wpdb->get_results( "SELECT * FROM `".$this->wpdb->prefix."perm_redis` ORDER BY `perm_redis_id` DESC" );
             if( sizeof($resultados) > 0)
             {
                 foreach($resultados as $res){
