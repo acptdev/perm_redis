@@ -1,0 +1,16 @@
+#perm_redis_main .text-right {
+  text-align: right; }
+
+#perm_redis_main .anuncios-content .perm_redis_main-item-list {
+  border: 1px solid gray;
+  margin-bottom: 20px;
+  padding: 10px; }
+  #perm_redis_main .anuncios-content .perm_redis_main-item-list p {
+    padding: 0;
+    margin: 5px 0;
+    font-size: .8rem; }
+  #perm_redis_main .anuncios-content .perm_redis_main-item-list .perm_redis_main-item-list-header {
+    padding: 5px 10px;
+    background-color: #a19d9d;
+    color: white;
+    font-size: .8rem; }

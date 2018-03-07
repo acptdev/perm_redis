@@ -10,6 +10,7 @@ License: GPLv2
 */
 
 define( 'PERM_REDIS', '1.0' );
+define( 'PERM_REDIS_FRONT_SHORT', 'PERM_REDIS' );
 define( 'PERM_REDIS_MENU_POSITION', 5 );
 define( 'PERM_REDIS__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
@@ -17,7 +18,6 @@ add_filter('init', array('PermRedis','inicializar'));
 register_activation_hook( __FILE__, array( 'PermRedis', 'pluginActivation' ) );
 register_deactivation_hook( __FILE__, array( 'PermRedis', 'pluginDeactivation' ) );
 add_action("admin_menu", array("PermRedisAdmin","adicionarMenu"));
-add_action( 'widgets_init', array("PermRedisFront","registrarWidget") );
 
 require_once( PERM_REDIS__PLUGIN_DIR . 'config.perm_redis.php' );
 require_once( PERM_REDIS__PLUGIN_DIR . 'class.perm_redis_model.php' );

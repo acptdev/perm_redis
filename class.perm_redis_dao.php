@@ -59,14 +59,21 @@
             return null;
         }
 
-        public function listar()
+        public function listar($isFront = false)
         {
             $results = array();
-            $resultados = $this->wpdb->get_results( "SELECT * FROM `".$this->wpdb->prefix."perm_redis` ORDER BY `perm_redis_id` DESC" );
+            $resultados = $this->wpdb->get_results("SELECT *, c1.Nome as CidadeOrigem, c2.Nome as CidadeDestino, e1.Nome as EstadoOrigem, e2.Nome as EstadoDestino 
+            FROM `".$this->wpdb->prefix."perm_redis` p
+            LEFT JOIN ".$this->wpdb->prefix."perm_redis_cidade c1 ON c1.perm_redis_cidade_id = p.OrgaoCidade
+            LEFT JOIN ".$this->wpdb->prefix."perm_redis_cidade c2 ON c2.perm_redis_cidade_id = p.OrgaoDestinoCidade
+            LEFT JOIN ".$this->wpdb->prefix."perm_redis_estado e1 ON e1.perm_redis_estado_id = p.OrgaoEstado
+            LEFT JOIN ".$this->wpdb->prefix."perm_redis_estado e2 ON e2.perm_redis_estado_id = p.OrgaoDestinoEstado
+            ORDER BY `perm_redis_id` DESC");
+            //$resultados = $this->wpdb->get_results( "SELECT * FROM `".$this->wpdb->prefix."perm_redis` ORDER BY `perm_redis_id` DESC" );
             if( sizeof($resultados) > 0)
             {
                 foreach($resultados as $res){
-                    array_push($results, PermutaReedistribuicao::fromDatabaseResult($res));
+                    array_push($results, PermutaReedistribuicao::fromDatabaseResult($res, $isFront));
                 }
             }         
             

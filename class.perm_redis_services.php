@@ -13,6 +13,14 @@
             
             add_action('rest_api_init', function($server){
 
+                $server->register_route( "list_front", '/perm-redis/registros-front', array(
+                    array(
+                            'methods'         => WP_REST_Server::READABLE,
+                            'callback'        => array( $this, 'listar_front' )
+                        )
+                    ) 
+                );
+
                 $server->register_route( "list", '/perm-redis/registros', array(
                     array(
                             'methods'         => WP_REST_Server::READABLE,
@@ -140,6 +148,11 @@
         public function listar($request)
         {         
             return $this->dao->listar();
+        }
+
+        public function listar_front($request)
+        {         
+            return $this->dao->listar(true);
         }
 
         public function buscar_por_id($request)

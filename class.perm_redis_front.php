@@ -1,39 +1,20 @@
 <?php 
   //referência http://www.wpexplorer.com/create-widget-plugin-wordpress/
-  class PermRedisFront extends WP_Widget{  
-    
-    /* registro do widget*/
-    public static function registrarWidget()
-    {
-      register_widget( 'PermRedisFront' );
-    }
-    
+  class PermRedisFront{  
+        
     // Main constructor
     public function __construct() {
-      parent::__construct(
-        'permredis_front','PermRedisFront',
-        array(
-          'customize_selective_refresh' => true,
-        )
-      );
+      add_shortcode(PERM_REDIS_FRONT_SHORT, array($this, 'makeForm'));
     }
 
-    // The widget form (for the backend )
-    public function form( $instance ) {	      
-      echo "<p>widget code</p>";      
+    public function makeForm()
+    {
+      $templateVars['{PATH_PLUGIN}'] = plugins_url("perm_redis");
+      $templateVars['{PATH_SERVICE}'] = home_url();
+      $frontTPL = file_get_contents(PERM_REDIS__PLUGIN_DIR."view/front_tpl.html");
+      return strtr($frontTPL,$templateVars);
     }
 
-    // Update widget settings
-    public function update( $new_instance, $old_instance ) {
-      /* ... Função para atualizar as opções do widget */
-      
-    }
-
-    // Display the widget
-    public function widget( $args, $instance ) {
-      echo "formulários de busca, preenchimento e listagem do widget";
-      echo $after_widget;
-    }
   }
 
 ?>

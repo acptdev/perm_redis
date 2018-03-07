@@ -41,19 +41,21 @@
             return $obj;
         }
 
-        public static function fromDatabaseResult($res)
+        public static function fromDatabaseResult($res, $isFront = false)
         {
             $obj = new PermutaReedistribuicao();                
                 $obj->id = $res->perm_redis_id;
                 $obj->nome = $res->Nome;
                 $obj->tipo = $res->Tipo;
-                $obj->cpf = $res->CPF;
+                $obj->cpf = $isFront ? '--' : $res->CPF;
                 $obj->cargo = $res->Cargo;
                 $obj->especialidade = $res->Especialidade;
                 $obj->matricula = $res->Matricula;
                 $obj->telefone = $res->Telefone;
                 $obj->email = $res->Email;
                 $obj->mensagem = $res->Mensagem;
+                $obj->origem = $res->CidadeOrigem .'/'. $res->EstadoOrigem;                
+                $obj->destino = $res->CidadeDestino .'/'. $res->EstadoDestino;                
                 $obj->orgaoOrigem = $res->OrgaoOrigem;                
                 $obj->estadoOrigem = $res->OrgaoEstado;
                 $obj->cidadeOrigem = $res->OrgaoCidade;
