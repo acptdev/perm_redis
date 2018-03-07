@@ -1,7 +1,7 @@
 <?php
 
-    define("REDIS_REGIOES",
-        [
+    
+        $GLOBALS['REDIS_REGIOES'] = [
             [ "Id" => 1, "Nome" => "Região", "Estados" => []],
             [ "Id" => 2, "Nome" => "TRT 01ª REGIÃO", "Estados" => [19] ],
             [ "Id" => 3, "Nome" => "TRT 02ª REGIÃO", "Estados" => [26] ],
@@ -29,19 +29,18 @@
             [ "Id" => 25, "Nome" => "TRT 24ª REGIÃO", "Estados" => [12]],
             [ "Id" => 26, "Nome" => "TST", "Estados" => [7,27]],
             [ "Id" => 27, "Nome" => "CSJT", "Estados" => [7,27]]
-        ]
-    );
+        ];
+    
 
-    define("REDIS_CARGOS",
-        [
+    
+        $GLOBALS['REDIS_CARGOS'] = [
             [ "Id" => 1, "Nome" => "I - Analista Judiciário" ],
             [ "Id" => 2, "Nome" => "II - Técnico Judiciário" ],
             [ "Id" => 3, "Nome" => "III - Auxiliar Judiciário" ]
-        ]
-    );
-
-    define("REDIS_ESPECIALIDADES",
-        [
+        ];
+    
+    
+        $GLOBALS['REDIS_ESPECIALIDADES'] = [
             [
                 ["Id" => 1, "Nome" => "Especialidade"],
                 [ "Id" => 2, "Nome" => "Não especificar"],
@@ -96,8 +95,8 @@
                 [ "Id" => 47, "Nome" => "Especialidade"],
                 [ "Id" => 48, "Nome" => "Não especificar"]
             ]
-        ]
-    );
+            ];
+    
 
     define("TABELA_REDIS_CAMPOS", "
             `perm_redis_id` INT NOT NULL AUTO_INCREMENT ,
@@ -116,7 +115,7 @@
             `OrgaoDestinoEstado` INT NULL ,
             `OrgaoDestinoCidade` INT NULL ,
             `Mensagem` VARCHAR(255) NULL ,  							
-            `Data` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ,  							
+            `Data` DATETIME NULL,  							
             `AlterHash` VARCHAR(255) NULL ,  							
             PRIMARY KEY (`perm_redis_id`)
     ");

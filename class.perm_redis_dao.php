@@ -12,7 +12,7 @@
         
         public function inserir(PermutaReedistribuicao $perm_redis)
         {
-            $this->wpdb->query(
+            $result = $this->wpdb->query(
                 "                                        
                     INSERT INTO `".$this->wpdb->prefix."perm_redis` 
                         (`perm_redis_id`, `Tipo`, `Nome`, `Email`, `CPF`, `Cargo`, `Especialidade`, `Matricula`, `Telefone`, `OrgaoOrigem`, `OrgaoEstado`, 
@@ -23,11 +23,12 @@
                             '$perm_redis->estadoDestino', '$perm_redis->cidadeDestino', '$perm_redis->mensagem');
                 "
              );
+             return $result ? 'ok' : $this->wpdb->last_error;
         }
 
         public function atualizar(PermutaReedistribuicao $perm_redis, $id)
         {
-            $this->wpdb->query(
+            $result = $this->wpdb->query(
                 "    
                     UPDATE `".$this->wpdb->prefix."perm_redis` 
                     SET `Tipo` = '$perm_redis->tipo', `Nome` = '$perm_redis->nome', `Email` = '$perm_redis->email', 
@@ -39,6 +40,7 @@
                     WHERE `wp_perm_redis`.`perm_redis_id` = $id;                                    
                 "
              );
+            return $result ? 'ok' : $this->wpdb->last_error;
         }
 
         public function deletar($id)
@@ -106,8 +108,11 @@
             $sqlCreateTableCidade = "CREATE TABLE IF NOT EXISTS `".$this->wpdb->prefix."perm_redis_cidade` ( ".TABELA_REDIS_CIDADES_CAMPOS." )";
                           
             $this->wpdb->query($sqlCreateTable);//cria base para redistribuição
+            echo $this->wpdb->last_error;
             $this->wpdb->query($sqlCreateTableEstado);            
+            echo $this->wpdb->last_error;
             $this->wpdb->query($sqlCreateTableCidade);            
+            echo $this->wpdb->last_error;
             
             $this->populateEstados();
             $this->populateCidades();

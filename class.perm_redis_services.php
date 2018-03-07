@@ -184,12 +184,10 @@
 
             if(@$parameters['id'])
             {
-                $this->dao->atualizar($permutaReedistribuicao, $parameters['id']);
-                $mensagem = "Atualização realizada com sucesso!";
+                $mensagem = $this->dao->atualizar($permutaReedistribuicao, $parameters['id']);               
                 
             }else{
-                $this->dao->inserir($permutaReedistribuicao);
-                $mensagem = "Cadastro realizado com sucesso!";
+                $mensagem = $this->dao->inserir($permutaReedistribuicao);                
             }
 
             $result[] = array(
@@ -205,7 +203,7 @@
             $parameters = $request->get_params();
 
             if(@$parameters['id'] && $parameters['id'] != 1){                             
-                $estados = REDIS_REGIOES[$parameters['id'] - 1]['Estados'];
+                $estados = $GLOBALS['REDIS_REGIOES'][$parameters['id'] - 1]['Estados'];
                 return $this->dao->listarEstadosPorRegiao($estados);
             }else{
                 return $this->dao->listarEstados();
@@ -220,14 +218,14 @@
 
         public function list_cargos()
         {
-            return REDIS_CARGOS;
+            return $GLOBALS['REDIS_CARGOS'];
         }
 
         public function list_especialidades($request)
         {
             $parameters = $request->get_params();
             if(@$parameters['id']){                                             
-                return REDIS_ESPECIALIDADES[$parameters['id'] - 1];
+                return $GLOBALS['REDIS_ESPECIALIDADES'][$parameters['id'] - 1];
             }else{
                 return null;
             }
@@ -235,7 +233,7 @@
 
         public function list_regioes()
         {
-            return REDIS_REGIOES;
+            return $GLOBALS['REDIS_REGIOES'];
         }
         
     }

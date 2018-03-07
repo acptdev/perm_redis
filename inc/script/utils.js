@@ -19,6 +19,8 @@ function httpRequest(_url, _type, _data, _callback){
 
 function dateFormat(_d)
 {
+    if(!_d) return 'não informado';
+    
     var _arrD = _d.split(' ');
     var _arrDate = _arrD[0].split('-');
 
