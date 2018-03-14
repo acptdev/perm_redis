@@ -1,16 +1,81 @@
+#perm_redis_main .text-center {
+  text-align: center; }
+
 #perm_redis_main .text-right {
   text-align: right; }
 
-#perm_redis_main .anuncios-content .perm_redis_main-item-list {
-  border: 1px solid gray;
-  margin-bottom: 20px;
-  padding: 10px; }
-  #perm_redis_main .anuncios-content .perm_redis_main-item-list p {
-    padding: 0;
-    margin: 5px 0;
-    font-size: .8rem; }
-  #perm_redis_main .anuncios-content .perm_redis_main-item-list .perm_redis_main-item-list-header {
-    padding: 5px 10px;
-    background-color: #a19d9d;
-    color: white;
-    font-size: .8rem; }
+#perm_redis_main .padding {
+  padding: 15px; }
+
+#perm_redis_main button, #perm_redis_main select {
+  padding: 10px 15px; }
+
+#perm_redis_main button {
+  background-color: black;
+  color: white;
+  cursor: pointer; }
+
+#perm_redis_main .options-area .option-area {
+  padding: 10px 0; }
+  #perm_redis_main .options-area .option-area select {
+    min-width: 200px;
+    margin-left: 10px; }
+  #perm_redis_main .options-area .option-area.buttons {
+    display: flex; }
+    #perm_redis_main .options-area .option-area.buttons button {
+      background-color: #00aae1;
+      transition: background-color .7s;
+      color: white;
+      flex: 1;
+      margin: 0 2px;
+      font-size: 12px; }
+      #perm_redis_main .options-area .option-area.buttons button.active {
+        background-color: #007095; }
+
+#perm_redis_main .options-area-content > div {
+  margin: 15px 0;
+  padding: 15px;
+  border: 1px #0083ae solid; }
+  #perm_redis_main .options-area-content > div#filtro select {
+    width: 100%; }
+  #perm_redis_main .options-area-content > div#cadastro {
+    padding: 0; }
+    #perm_redis_main .options-area-content > div#cadastro ul {
+      display: flex;
+      list-style: none; }
+      #perm_redis_main .options-area-content > div#cadastro ul li {
+        flex: 1; }
+        #perm_redis_main .options-area-content > div#cadastro ul li label {
+          width: 98%; }
+          #perm_redis_main .options-area-content > div#cadastro ul li label input, #perm_redis_main .options-area-content > div#cadastro ul li label select {
+            display: block;
+            width: 100%; }
+    #perm_redis_main .options-area-content > div#cadastro .buttons-control {
+      padding: 15px; }
+    #perm_redis_main .options-area-content > div#cadastro .avisos p {
+      margin: 10px 0;
+      padding: 0; }
+    #perm_redis_main .options-area-content > div#cadastro section {
+      padding: 15px; }
+      #perm_redis_main .options-area-content > div#cadastro section:nth-child(even) {
+        background-color: #ededed; }
+    #perm_redis_main .options-area-content > div#cadastro textarea {
+      width: 100%;
+      margin-bottom: 20px; }
+
+#perm_redis_main .anuncios-content {
+  max-height: 670px;
+  overflow-y: scroll; }
+  #perm_redis_main .anuncios-content .perm_redis_main-item-list {
+    border: 1px solid #00aae1;
+    margin-bottom: 20px;
+    padding: 10px; }
+    #perm_redis_main .anuncios-content .perm_redis_main-item-list p {
+      padding: 0;
+      margin: 5px 0;
+      font-size: .8rem; }
+    #perm_redis_main .anuncios-content .perm_redis_main-item-list .perm_redis_main-item-list-header {
+      padding: 5px 10px;
+      background-color: #00aae1;
+      color: white;
+      font-size: .8rem; }

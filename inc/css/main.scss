@@ -1,12 +1,104 @@
-#perm_redis_main{
+$bg-padrao: #00aae1;
+#perm_redis_main{    
+    .text-center{
+        text-align: center;
+    }
     .text-right{
         text-align: right;
     }
+    .padding {
+        padding: 15px;
+    }
+    button, select{
+        padding: 10px 15px;        
+    }
+    button{
+        background-color: black;
+        color: white;
+        cursor: pointer;
+    }
+    .options-area{
+        .option-area{
+            padding: 10px 0;
+            select{
+                min-width: 200px;
+                margin-left: 10px;
+            }
+            &.buttons{
+                display: flex;
+                button{
+                    background-color: $bg-padrao;
+                    transition: background-color .7s;
+                    color: white;
+                    flex: 1;
+                    margin: 0 2px;
+                    font-size: 12px;
+
+                    &.active{
+                        background-color: darken($bg-padrao, 15);
+                    }
+                }
+            }
+        }
+    }
+    .options-area-content{
+        &>div{
+            
+            margin: 15px 0;
+            padding: 15px;        
+            border: 1px darken($color: $bg-padrao, $amount: 10) solid;
+            
+            &#filtro
+            {
+                select{
+                    width: 100%;
+                }
+            }
+            &#cadastro {
+                ul{
+                    display: flex;
+                    list-style: none;
+                    li{
+                        flex: 1;
+                        label{
+                            width: 98%;
+                            input, select{
+                                display: block;
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+                padding: 0;
+                .buttons-control{
+                    padding: 15px;
+                }
+                .avisos{
+                    p{
+                        margin: 10px 0;
+                        padding: 0;
+                    }
+                }
+                section{
+                    padding: 15px;
+                    &:nth-child(even){
+                        background-color: #ededed;
+                    }
+                }
+                textarea{
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
     .anuncios-content
-    {
+    {        
+        max-height: 670px;
+        overflow-y: scroll;
         .perm_redis_main-item-list
         {
-            border: 1px solid gray;
+            border: 1px solid $bg-padrao;
             margin-bottom: 20px;
             padding: 10px;
             p{
@@ -16,7 +108,7 @@
             }       
             .perm_redis_main-item-list-header{
                 padding: 5px 10px;
-                background-color: rgb(161, 157, 157);
+                background-color: $bg-padrao;
                 color: white;
                 font-size: .8rem;
             }
