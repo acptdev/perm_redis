@@ -1,5 +1,8 @@
-angular.module("PermRedisApp", ['ui.utils.masks'])
-    .controller("PermRedisAppController",function($scope, $http, $q){
+angular.module("PermRedisApp", ['ngMask'])
+    .config(function ($locationProvider){
+        $locationProvider.html5Mode(true);
+    })
+    .controller("PermRedisAppController", function ($scope, $http, $q, $location, $timeout){        
 
         $scope.loaded = true;
         $scope.regioes = [];
@@ -31,13 +34,40 @@ angular.module("PermRedisApp", ['ui.utils.masks'])
                 $http.get(`${window.BASE_URL}/regioes`),
                 $http.get(`${window.BASE_URL}/cargos`),
                 $http.get(`${window.BASE_URL}/registros-front`)
-            ]).then( datas => {
-                $scope.loaded = false;
+            ]).then( datas => {                
                 $scope.regioes = datas[0].data;
                 $scope.cargos = datas[1].data;
                 $scope.registros = datas[2].data;
                 _loadEspecialidades(1);
+                
             })
+        }
+
+        var _recuperarRegistro = function()
+        {
+            var hash = $location.search().chave;
+            if( hash )
+            {
+                $scope.loaded = true;
+                $http.post(`${window.BASE_URL}/registro-front`, { 'hash': hash})
+                    .then( res => {
+                        if(res.data.sucesso){
+                            $scope.trocarAba('cadastro');
+                            $scope.cadastro = res.data.registro                        
+                            $scope.cadastro.cargo = parseInt($scope.cadastro.cargo);
+                            $scope.cadastro.especialidade = parseInt($scope.cadastro.especialidade);
+                            $scope.cadastro.orgaoOrigem = parseInt($scope.cadastro.orgaoOrigem);
+                            $scope.cadastro.orgaoDestino = parseInt($scope.cadastro.orgaoDestino);                        
+                            $scope.selecionarRegiaoDestino();
+                            $scope.selecionarRegiaoOrigem();
+                        }
+                        $scope.loaded = false;
+                    } )
+                    .catch(error => {
+                        $scope.loaded = true;
+                    })
+
+            }
         }
 
         var _loadEspecialidades = function(_id)
@@ -47,6 +77,8 @@ angular.module("PermRedisApp", ['ui.utils.masks'])
                     res => { 
                         $scope.especialidades = res.data;
                         $scope.cadastro.especialidade = $scope.especialidades[0].Id;
+                        $scope.loaded = false;
+                        _recuperarRegistro();
                     }
                 )
         }
@@ -78,13 +110,12 @@ angular.module("PermRedisApp", ['ui.utils.masks'])
                 }).catch(error => { $scope.sendingEdicao = false })
         }
 
-        $scope.cadastrar = function()
+        $scope.excluirRegistro = function()
         {
-            $scope.sendingCadastro = true;
-            $http.post(`${window.BASE_URL}/registro`, $scope.cadastro)
-                .then(
-                    res => {
-                        $scope.sendingCadastro = false;
+            if( window.confirm('Confirma a exclusão deste registro?') )
+            {
+                $http.delete(`${window.BASE_URL}/registro/${$scope.cadastro.id}`)
+                    .then( res => {
                         $scope.cadastro = {
                             tipo: "1",
                             orgaoOrigem: 1,
@@ -92,14 +123,73 @@ angular.module("PermRedisApp", ['ui.utils.masks'])
                             cargo: 1,
                         };
                         $scope.trocarAba('');
-                        window.alert("Cadastro realizado com sucesso");
-                    }
-                ).catch(
-                    error => {
-                        $scope.sendingCadastro = false;
-                        window.alert("Erro ao cadastrar registro");
-                    }
-                )
+                        _loadAll();
+                    }).catch(
+                        err => window.alert("Erro ao tentar excluir, tente novamente!")
+                    )
+            }
+        }
+        $scope.cadastrar = function(event)
+        {
+            event.preventDefault();
+            $scope.sendingCadastro = true;
+            if(!$scope.cadastro.id)
+            {
+                $http.post(`${window.BASE_URL}/registro`, $scope.cadastro)
+                    .then(
+                        res => {
+                            console.log(res);
+                            if(res.data.sucesso)
+                            {                            
+                                $scope.cadastro = {
+                                    tipo: "1",
+                                    orgaoOrigem: 1,
+                                    orgaoDestino: 1,
+                                    cargo: 1,
+                                };
+                                $scope.trocarAba('');
+                                window.alert("Cadastro realizado com sucesso");
+                                _loadAll();
+                            }else{
+                                window.alert(res.data.data);
+                            }
+                            $scope.sendingCadastro = false;
+                        }
+                    ).catch(
+                        error => {
+                            
+                            $scope.sendingCadastro = false;
+                            window.alert("Erro ao cadastrar registro");
+                        }
+                    )
+            }else{
+                $http.put(`${window.BASE_URL}/registro/${$scope.cadastro.id}`, $scope.cadastro)
+                    .then(
+                        res => {                            
+                            if (res.data.sucesso) {
+                                $scope.cadastro = {
+                                    tipo: "1",
+                                    orgaoOrigem: 1,
+                                    orgaoDestino: 1,
+                                    cargo: 1,
+                                };
+                                $scope.trocarAba('');
+                                window.alert("Cadastro alterado com sucesso");
+                                _loadAll();
+                            } else {
+                                window.alert(res.data.data);
+                            }
+                            $scope.sendingCadastro = false;
+                        }
+                    ).catch(
+                        error => {
+
+                            $scope.sendingCadastro = false;
+                            window.alert("Erro ao alterar registro");
+                        }
+                    )
+            }
+            return false;
         }
 
         $scope.selecionarRegiaoOrigem = function()
@@ -109,6 +199,9 @@ angular.module("PermRedisApp", ['ui.utils.masks'])
                     res => { 
                         $scope.estadosOrigem = res.data;
                         $scope.cidadesOrigem = [];
+                        if ($scope.cadastro.estadoDestino) {
+                            $scope.mudarEstadoOrigem();
+                        }
                     }
                 )
             
@@ -120,6 +213,9 @@ angular.module("PermRedisApp", ['ui.utils.masks'])
                     res => { 
                         $scope.estadosDestino = res.data;
                         $scope.cidadesDestino = [];
+                        if($scope.cadastro.estadoDestino){
+                            $scope.mudarEstadoDestino();
+                        }
                     }
                 )
         }
@@ -129,7 +225,8 @@ angular.module("PermRedisApp", ['ui.utils.masks'])
                 .then( res => {
 
                     $scope.cidadesOrigem = res.data;
-                    $scope.cadastro.cidadeOrigem = $scope.cidadesOrigem[0].perm_redis_cidade_id;
+                    if(!$scope.cadastro.cidadeOrigem)
+                        $scope.cadastro.cidadeOrigem = $scope.cidadesOrigem[0].perm_redis_cidade_id;
                 });
 
         }
@@ -138,8 +235,18 @@ angular.module("PermRedisApp", ['ui.utils.masks'])
                 .then(res => {
 
                     $scope.cidadesDestino = res.data;
-                    $scope.cadastro.cidadeDestino = $scope.cidadesDestino[0].perm_redis_cidade_id;
+                    if(!$scope.cadastro.cidadeDestino)
+                        $scope.cadastro.cidadeDestino = $scope.cidadesDestino[0].perm_redis_cidade_id;
                 });
+        }
+        $scope.checkTelefone = function()
+        {
+            if ($scope.cadastro.telefone.length != 15 && $scope.cadastro.telefone.length != 14)
+                $scope.cadastro.telefone = "";
+        }
+        $scope.checkCPF = function () {
+            if ($scope.cadastro.cpf.length != 14)
+                $scope.cadastro.cpf = "";
         }
         _init();
     });

@@ -58,12 +58,16 @@ $bg-padrao: #00aae1;
                 ul{
                     display: flex;
                     list-style: none;
+                    margin: 0;
                     li{
                         flex: 1;
                         label{
                             width: 98%;
                             input, select{
                                 display: block;
+                                width: 95%;
+                            }
+                            select {                        
                                 width: 100%;
                             }
                         }
@@ -74,7 +78,7 @@ $bg-padrao: #00aae1;
                     padding: 15px;
                 }
                 .avisos{
-                    p{
+                    p{ 
                         margin: 10px 0;
                         padding: 0;
                     }
